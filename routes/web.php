@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 
@@ -10,6 +11,7 @@ class Task
         public int $id,
         public string $title,
         public string $description,
+        // this ? makes it optional
         public ?string $long_description,
         public bool $completed,
         public string $created_at,
@@ -57,28 +59,31 @@ $tasks = [
     ),
 ];
 
+Route::get('/', function () {
+    return redirect()->route('tasks.index');
+});
+
 // in php to access variable outside of anonymous functions we need add  use()
-Route::get('/', function () use ($tasks) {
+Route::get('/tasks', function () use ($tasks) {
     return view('index', [
         'tasks' => $tasks,
 
     ]);
-});
+})->name('tasks.index');
 
-Route::get('/hello', function () {
-    return 'Hello';
-})->name('hello');
+Route::get('/tasks/{id}', function ($id) use ($tasks) {
+    // collect will convert arrays into laravel collection objects, in php arrays are not objects they are primitive data types so to operate on arrays you need to use functions like to add item,find an item etc 
+    // so to interact with arrays using object oriented way,we use collect() which turn array into a collection object which lets you call methods
 
+    $task = collect($tasks)->firstWhere('id', $id);
 
-Route::get('/hallo', function () {
+    if (!$task) {
+        //it will stop the requests with specific code
+        abort(Response::HTTP_NOT_FOUND);
+    }
 
-    return redirect()->route('hello');
-});
-
-
-Route::get('/greet/{name}', function ($name) {
-    return 'Hello ' . $name . '!';
-});
+    return view('show', ['task' => $task]);
+})->name('tasks.show');
 
 
 Route::fallback(function () {
