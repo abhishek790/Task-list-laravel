@@ -63,7 +63,7 @@ Route::get('/', function () {
     return redirect()->route('tasks.index');
 });
 
-// in php to access variable outside of anonymous functions we need add  use()
+
 Route::get('/tasks', function () use ($tasks) {
     return view('index', [
         'tasks' => $tasks,
@@ -71,18 +71,12 @@ Route::get('/tasks', function () use ($tasks) {
     ]);
 })->name('tasks.index');
 
-Route::get('/tasks/{id}', function ($id) use ($tasks) {
-    // collect will convert arrays into laravel collection objects, in php arrays are not objects they are primitive data types so to operate on arrays you need to use functions like to add item,find an item etc 
-    // so to interact with arrays using object oriented way,we use collect() which turn array into a collection object which lets you call methods
+Route::get('/tasks/{id}', function ($id) {
+    // lets you fetch a record form the database one single row by its primary key
+    \App\Models\Task::find();
 
-    $task = collect($tasks)->firstWhere('id', $id);
 
-    if (!$task) {
-        //it will stop the requests with specific code
-        abort(Response::HTTP_NOT_FOUND);
-    }
-
-    return view('show', ['task' => $task]);
+    return view('show');
 })->name('tasks.show');
 
 
