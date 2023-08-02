@@ -2,31 +2,51 @@
 
 @section('title','Add Task')
 
+{{-- creating styles section for adding customs styles --}}
+@section('styles')
+<style>
+    .error-message{
+        color:red;
+        font-size: 0,8rem;
+    }
+
+</style>
+@endsection
+
 @section('content')
-{{-- lets render the value of the special errors variable that laravel makes available to all views so it doesn't have to be passed from any routes --}}
-{{$errors}}
-<form action="{{route('tasks.store')}}" method="post">
-    
+
+<form action="{{route('tasks.store')}}" method="post">  
 @csrf
 <div>
     <label for="title">Title</label>
     <input type="text" id ="title" name = "title">
+    
+    
+    @error('title')
+    
+    <p class="error-message" >{{$message}}</p>
+    @enderror
 </div>
 
 <div>
     <label for="description">Description</label>
     <textarea name="description" id="description" cols="30" rows="10"></textarea>
+    @error('description')
+    <p class="error-message" >{{$message}}</p>
+    @enderror
 </div>
 
 <div>
     <label for="long_description">Description</label>
     <textarea name="long_description" id="long_description" cols="30" rows="10"></textarea>
+    @error('long_description')
+    <p class="error-message" >{{$message}}</p>
+    @enderror
 </div>
 
 <div>
     <button type= "submit">Add Task</button>
 </div>
 </form>
-
 
 @endsection

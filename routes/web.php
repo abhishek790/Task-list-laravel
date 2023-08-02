@@ -49,12 +49,12 @@ Route::post('/tasks', function (Request $request) {
     $task->long_description = $data['long_description'];
 
     $task->save();
-    return redirect()->route('tasks.show', ['id' => $task->id]);
+    return redirect()->route('tasks.show', ['id' => $task->id])
+        // you can add flash message with a method called with() which lets you set some session data
+        ->with('success', 'Task created successfully!');
+    ;
 })->name('tasks.store');
 
 Route::fallback(function () {
     return 'Still got somewhere';
 });
-
-// laravel store validation error and flash message in session which can then be used to display
-// so how it works in general is t
