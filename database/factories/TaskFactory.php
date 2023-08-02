@@ -21,7 +21,7 @@ class TaskFactory extends Factory
             'title' => fake()->sentence,
             'description' => fake()->paragraph,
             // how many sentences to make => 7
-            'long-description' => fake()->paragraph(7, true),
+            'long_description' => fake()->paragraph(7, true),
             'complete' => fake()->boolean
         ];
     }
