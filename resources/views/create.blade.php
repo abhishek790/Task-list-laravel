@@ -2,12 +2,12 @@
 
 @section('title','Add Task')
 
-{{-- creating styles section for adding customs styles --}}
+
 @section('styles')
 <style>
     .error-message{
         color:red;
-        font-size: 0,8rem;
+        font-size: 0.8rem;
     }
 
 </style>
@@ -15,8 +15,9 @@
 
 @section('content')
 
-<form action="{{route('tasks.store')}}" method="post">  
+<form action="{{route('tasks.store')}}" method="POST">  
 @csrf
+
 <div>
     <label for="title">Title</label>
     <input type="text" id ="title" name = "title">
