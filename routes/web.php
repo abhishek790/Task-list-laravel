@@ -12,9 +12,11 @@ Route::get('/', function () {
 });
 
 //get task
+// implementating pagination
 Route::get('/tasks', function () {
     return view('index', [
-        'tasks' => Task::latest()->get()
+
+        'tasks' => Task::latest()->paginate(10)
     ]);
 })->name('tasks.index');
 
@@ -61,9 +63,15 @@ Route::delete('tasks/{task}', function (Task $task) {
     return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
 })->name('tasks.destroy');
 
+Route::put('tasks/{task}/toggle-complete', function (Task $task) {
+    //this method is defined in Task class
+    $task->toggleComplete();
+
+    // back() le feri ghumera tei page ma aaucha
+    return redirect()->back()->with('success', 'Task updated successfully');
+
+})->name('tasks.toggle-complete');
 //fallback route
 Route::fallback(function () {
     return 'Still got somewhere';
 });
-
-// resuable view that is common for different usecases

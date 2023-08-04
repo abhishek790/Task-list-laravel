@@ -1,5 +1,4 @@
 
-
 @section('title', isset($task) ? 'Edit Task': 'Add Task')
 
 @section('styles')

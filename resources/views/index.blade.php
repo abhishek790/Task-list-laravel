@@ -3,7 +3,10 @@
 @section('title','The list of tasks')
 
 @section('content')
-<div>
+    <div>
+        <a href="{{route('tasks.create')}}">Add Task</a>
+    </div>
+
     @forelse($tasks as $task)
         <div>
             
@@ -12,7 +15,15 @@
     @empty
         <div>There are no tasks!</div>
     @endforelse
-</div>
+
+    {{--PAGINATION this will chech if there are any task --}}
+    @if($tasks)
+        {{-- if we have any tasks at all then we need to display the links and we do that by calling links method of the passed variable --}}
+        <nav>
+            {{$tasks ->links()}}
+        </nav>
+    @endif
+
 @endsection
 
     
