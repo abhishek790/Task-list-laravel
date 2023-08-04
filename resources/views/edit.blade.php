@@ -15,7 +15,7 @@
 
 @section('content')
 
-<form action="{{route('tasks.update',['id'=>$task->id])}}" method="POST">  
+<form action="{{route('tasks.update',['task'=>$task->id])}}" method="POST">  
 @csrf
 {{-- In html only supports POST or GET http methods,but for the edit form we will be using a put method as it is well suitable for cases where you update an existing resource, typically you shouldn't use post for that. So to solve it we have laravel directive  called method where we can specify put.
 --}}
@@ -37,7 +37,7 @@
 </div>
 
 <div>
-    <label for="long_description">Description</label>
+    <label for="long_description">Long Description</label>
     <textarea name="long_description" id="long_description" cols="30" rows="10">{{$task->long_description}}</textarea>
     @error('long_description')
     <p class="error-message" >{{$message}}</p>
