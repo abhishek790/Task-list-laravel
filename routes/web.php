@@ -23,7 +23,6 @@ Route::view('/tasks/create', 'create')
     ->name('tasks.create');
 
 //edit task form
-
 Route::get('/tasks/{task}/edit', function (Task $task) {
     return view('edit', [
         'task' => $task,
@@ -54,7 +53,17 @@ Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
     ;
 })->name('tasks.update');
 
+//delete task
+Route::delete('tasks/{task}', function (Task $task) {
+    // this will delete data form the database
+    $task->delete();
+
+    return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
+})->name('tasks.destroy');
+
 //fallback route
 Route::fallback(function () {
     return 'Still got somewhere';
 });
+
+// resuable view that is common for different usecases
