@@ -10,7 +10,7 @@
     @forelse($tasks as $task)
         <div>
             {{-- @class lets you add css class conditionally --}}
-            <a href="{{route('tasks.show',['task'=>$task->id])}}" @class(['font-bold', 'line-through' =>$task->complete])>{{$task['title']}}</a>
+            <a href="{{route('tasks.show',['task'=>$task->id])}}" @class(['line-through' =>$task->complete])>{{$task['title']}}</a>
         </div>
     @empty
         <div>There are no tasks!</div>
